@@ -1,0 +1,7 @@
+{
+  "name": "JewelRetouch Pro",
+  "description": "An ultra-premium jewelry retouching platform that transforms raw product photos into studio-grade e-commerce assets using advanced AI.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
