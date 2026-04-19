@@ -20,7 +20,7 @@ const Header: React.FC<HeaderProps> = ({ activeMode, onModeChange }) => {
     if (isAnimatingLogo) {
       const timer = setTimeout(() => {
         setIsAnimatingLogo(false);
-      }, 1200);
+      }, 700);
       return () => clearTimeout(timer);
     }
   }, [isAnimatingLogo]);
@@ -46,7 +46,7 @@ const Header: React.FC<HeaderProps> = ({ activeMode, onModeChange }) => {
       <header className="py-8 px-10 bg-white/95 backdrop-blur-xl border-b border-gray-100 flex flex-col md:flex-row items-center justify-between sticky top-0 z-40 gap-6">
         <div className="flex-shrink-0 flex items-center justify-center md:justify-start">
           {!isAnimatingLogo && (
-            <motion.div layoutId="main-logo" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}>
+            <motion.div layoutId="main-logo" transition={{ type: "spring", bounce: 0.1, duration: 0.45 }}>
               {logoContent}
             </motion.div>
           )}
@@ -96,7 +96,7 @@ const Header: React.FC<HeaderProps> = ({ activeMode, onModeChange }) => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <motion.div layoutId="main-logo" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} className="scale-150">
+            <motion.div layoutId="main-logo" transition={{ type: "spring", bounce: 0.1, duration: 0.45 }} className="scale-150">
               {logoContent}
             </motion.div>
           </motion.div>
