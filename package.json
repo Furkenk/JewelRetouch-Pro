@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@google/genai": "^1.41.0",
+    "jszip": "^3.10.1",
     "motion": "^12.38.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
