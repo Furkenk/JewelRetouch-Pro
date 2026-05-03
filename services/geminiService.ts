@@ -33,7 +33,6 @@ Target Products: ${products.toUpperCase()}.
 Environment: ${options.environment.toUpperCase()}.
 Model Skin Tone: ${options.skinTone.toUpperCase()}.
 Model Hair Color: ${options.hairColor.toUpperCase()}.
-Finger Type: ${options.fingerType.toUpperCase()}.
 Product Scale: ${options.productScale}x (1.0 is standard size).
 
 CRITICAL INSTRUCTIONS:
