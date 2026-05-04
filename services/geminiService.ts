@@ -26,14 +26,26 @@ CRITICAL INSTRUCTIONS:
 Format: High Resolution Studio JPG.`;
 };
 
-const buildFashionPrompt = (options: FashionOptions) => {
+const buildFashionPrompt = (options: FashionOptions, assetPrompt?: string) => {
   const products = options.productTypes.join(' and ');
+  
+  let fingerSizePrompt = '';
+  if (options.productTypes.includes('ring')) {
+    if (options.fingerSize === 'normal') {
+      fingerSizePrompt = `\n[GLOBAL SCALE LOCK: HYPER-MICRO ASSEMBLY]- **PROPORTIONAL SHRINK:** Reduce the entire 3D volume of the ring (stone + shank + setting) to 40% of the reference scale.- **ANATOMICAL STABILITY:** Maintain natural, slender finger proportions. DO NOT thin the finger or arm.- **VISUAL EFFECT:** The ring appears as a microscopic, precious spark, occupying a minimal footprint on the finger surface.`;
+    } else if (options.fingerSize === 'medium') {
+      fingerSizePrompt = `\n[GLOBAL SCALE LOCK: REFINED DAINTY ASSEMBLY]- **PROPORTIONAL SHRINK:** Reduce the entire ring assembly to 70% of the reference scale.- **PROPORTION:** The center stone and band thickness must decrease together to maintain design integrity.- **VISUAL EFFECT:** A delicate, minimalist accent that feels sophisticated and secondary to the hand's elegance.`;
+    } else if (options.fingerSize === 'large') {
+      fingerSizePrompt = `\n[GLOBAL SCALE LOCK: REGAL BOLD ASSEMBLY]- **PROPORTIONAL LOCK:** High-impact, voluminous presence (1:1 with reference).- **STYLE:** Maximum luxury, hero-focused.- **VISUAL EFFECT:** A statement piece that commands the entire finger.`;
+    }
+  }
+
   return `LUXURY FASHION POST-PRODUCTION TASK.
 Target Products: ${products.toUpperCase()}.
 Environment: ${options.environment.toUpperCase()}.
 Model Skin Tone: ${options.skinTone.toUpperCase()}.
 Model Hair Color: ${options.hairColor.toUpperCase()}.
-Product Scale: ${options.productScale}x (1.0 is standard size).
+Product Scale: ${options.productScale}x (1.0 is standard size).${fingerSizePrompt}${assetPrompt ? `\n\n--- ASSET SPECIFIC INSTRUCTIONS ---\n${assetPrompt}` : ''}
 
 CRITICAL INSTRUCTIONS:
 1. Generate a high-end fashion photograph featuring a professional model.
@@ -132,7 +144,8 @@ export async function processFashionProduction(
   outfitRefBase64?: string,
   accessoryRefBase64?: string,
   faceReferencesBase64?: string[],
-  consistentModelBase64?: string
+  consistentModelBase64?: string,
+  assetPrompt?: string
 ): Promise<string> {
   const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
   
@@ -201,7 +214,7 @@ export async function processFashionProduction(
   }
 
   parts.push({
-    text: buildFashionPrompt(options)
+    text: buildFashionPrompt(options, assetPrompt)
   });
 
   try {
